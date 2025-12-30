@@ -36,8 +36,17 @@ image.src = "img/PelletTown.png";
 const foregroundImage = new Image();
 foregroundImage.src = "img/foregroundObjects.png";
 
-const playerImage = new Image();
-playerImage.src = "img/playerDown.png";
+const playerDownImage = new Image();
+playerDownImage.src = "img/playerDown.png";
+
+const playerUpImage = new Image();
+playerUpImage.src = "img/playerUp.png";
+
+const playerLeftImage = new Image();
+playerLeftImage.src = "img/playerLeft.png";
+
+const playerRightImage = new Image();
+playerRightImage.src = "img/playerRight.png";
 
 // Player sempre centralizado no canvas
 const player = new Sprite({
@@ -45,8 +54,14 @@ const player = new Sprite({
     x: canvas.width / 2 - 192 / 1 / 3,
     y: canvas.height / 2 - 7,
   },
-  image: playerImage,
+  image: playerDownImage,
   frames: { max: 4 },
+  sprites: {
+    up: playerUpImage,
+    left: playerLeftImage,
+    right: playerRightImage,
+    down: playerDownImage,
+  },
 });
 
 // Background inicia na posição correta para o player “ficar no ponto inicial certo”
@@ -97,9 +112,11 @@ image.onload = () => {
     foreground.draw();
 
     let moving = true;
-
+    player.moving = false;
     if (keys.w.pressed && lastKey === "w") {
       for (let i = 0; i < boundaries.length; i++) {
+        player.moving = true;
+        player.image = player.sprites.up;
         const boundary = boundaries[i];
         if (
           rectangularCollision({
@@ -120,6 +137,8 @@ image.onload = () => {
 
       if (moving) movables.forEach((movable) => (movable.position.y += 3));
     } else if (keys.a.pressed && lastKey === "a") {
+      player.moving = true;
+      player.image = player.sprites.left;
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (
@@ -141,6 +160,8 @@ image.onload = () => {
 
       if (moving) movables.forEach((movable) => (movable.position.x += 3));
     } else if (keys.s.pressed && lastKey === "s") {
+      player.moving = true;
+      player.image = player.sprites.down;
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (
@@ -164,6 +185,8 @@ image.onload = () => {
           movable.position.y -= 3;
         });
     } else if (keys.d.pressed && lastKey === "d") {
+      player.moving = true;
+      player.image = player.sprites.right;
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (
