@@ -123,6 +123,38 @@ window.addEventListener("touchstart", startMusic, { once: true }); // mobile
 window.addEventListener("keydown", startMusic, { once: true }); // desktop
 window.addEventListener("mousedown", startMusic, { once: true }); // desktop click
 
+// Controle por arrasto no mobile
+let touchStartPos = null;
+if (isMobile) {
+  canvas.addEventListener("touchstart", (e) => {
+    touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  });
+
+  canvas.addEventListener("touchmove", (e) => {
+    if (!touchStartPos) return;
+    const touch = e.touches[0];
+    const dx = touch.clientX - touchStartPos.x;
+    const dy = touch.clientY - touchStartPos.y;
+    const threshold = 10;
+
+    keys.w.pressed = dy < -threshold;
+    keys.s.pressed = dy > threshold;
+    keys.a.pressed = dx < -threshold;
+    keys.d.pressed = dx > threshold;
+
+    if (Math.abs(dx) > Math.abs(dy)) lastKey = dx > 0 ? "d" : "a";
+    else lastKey = dy > 0 ? "s" : "w";
+  });
+
+  canvas.addEventListener("touchend", () => {
+    keys.w.pressed = false;
+    keys.a.pressed = false;
+    keys.s.pressed = false;
+    keys.d.pressed = false;
+    touchStartPos = null;
+  });
+}
+
 // Função principal após carregar o background
 image.onload = () => {
   function rectangularCollision({ rectangle1, rectangle2 }) {
