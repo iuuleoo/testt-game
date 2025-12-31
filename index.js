@@ -7,7 +7,7 @@ const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 // Função para definir a velocidade
 function getSpeed() {
   if (isMobile) {
-    return Math.min(canvas.width, canvas.height) * 1; // mais rápido no mobile
+    return 3; // velocidade segura no mobile
   } else {
     return 2; // velocidade fixa no PC
   }
@@ -137,11 +137,13 @@ if (isMobile) {
     const dy = touch.clientY - touchStartPos.y;
     const threshold = 10;
 
+    // Atualiza as teclas pressionadas
     keys.w.pressed = dy < -threshold;
     keys.s.pressed = dy > threshold;
     keys.a.pressed = dx < -threshold;
     keys.d.pressed = dx > threshold;
 
+    // Define lastKey para animação correta
     if (Math.abs(dx) > Math.abs(dy)) lastKey = dx > 0 ? "d" : "a";
     else lastKey = dy > 0 ? "s" : "w";
   });
