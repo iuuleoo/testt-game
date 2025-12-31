@@ -2,15 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
     <title>My-game</title>
-  </head>
-  <body>
     <style>
+      html,
       body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        touch-action: none;
         background-color: black;
+        width: 100%;
+        height: 100%;
+      }
+
+      canvas {
+        display: block;
       }
     </style>
+  </head>
+  <body>
     <canvas></canvas>
     <script src="data/collisions.js"></script>
     <script src="classes.js"></script>
