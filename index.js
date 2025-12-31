@@ -107,21 +107,21 @@ let lastKey = "";
 const movables = [background, ...boundaries, foreground];
 
 // 🎵 Música de fundo
-const backgroundMusic = new Audio("audio/map.wav"); // caminho da música
+const backgroundMusic = new Audio("audio/map.wav");
 backgroundMusic.loop = true;
-backgroundMusic.volume = 0.1; // volume baixo
+backgroundMusic.volume = 0.03; // volume bem baixo
 
-// Função para tocar a música no mobile
-function playMusic() {
+function startMusic() {
   backgroundMusic.play().catch(() => {});
-  window.removeEventListener("touchstart", playMusic);
+  window.removeEventListener("touchstart", startMusic);
+  window.removeEventListener("keydown", startMusic);
+  window.removeEventListener("mousedown", startMusic);
 }
 
-// Mobile: toca música no primeiro toque
-window.addEventListener("touchstart", playMusic, { once: true });
-
-// Desktop: tenta tocar automaticamente
-backgroundMusic.play().catch(() => {});
+// Tocar música na primeira interação do usuário
+window.addEventListener("touchstart", startMusic, { once: true }); // mobile
+window.addEventListener("keydown", startMusic, { once: true }); // desktop
+window.addEventListener("mousedown", startMusic, { once: true }); // desktop click
 
 // Função principal após carregar o background
 image.onload = () => {

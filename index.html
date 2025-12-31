@@ -25,9 +25,33 @@
     </style>
   </head>
   <body>
+    <!-- Música de fundo -->
+    <audio id="backgroundMusic" src="audio/map.wav" loop></audio>
+
     <canvas></canvas>
+
+    <!-- Seus scripts do jogo -->
     <script src="data/collisions.js"></script>
     <script src="classes.js"></script>
     <script src="index.js"></script>
+
+    <script>
+      // Ajusta volume e interação para tocar música
+      const backgroundMusic = document.getElementById("backgroundMusic");
+      backgroundMusic.volume = 0.1; // volume baixo
+
+      function playMusic() {
+        backgroundMusic.play().catch(() => {});
+        // Remove os listeners após tocar
+        window.removeEventListener("touchstart", playMusic);
+        window.removeEventListener("mousedown", playMusic);
+        window.removeEventListener("keydown", playMusic);
+      }
+
+      // Interação inicial do usuário
+      window.addEventListener("touchstart", playMusic, { once: true });
+      window.addEventListener("mousedown", playMusic, { once: true });
+      window.addEventListener("keydown", playMusic, { once: true });
+    </script>
   </body>
 </html>
