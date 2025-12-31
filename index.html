@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no"
     />
-    <title>My-game</title>
+    <title>My Game</title>
     <style>
       html,
       body {
@@ -22,60 +22,16 @@
       canvas {
         display: block;
       }
-
-      /* Mensagem discreta para mobile */
-      #touchMessage {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-family: sans-serif;
-        font-size: 18px;
-        text-align: center;
-        display: none;
-        pointer-events: none;
-      }
     </style>
   </head>
   <body>
     <!-- Música de fundo -->
     <audio id="backgroundMusic" src="audio/map.wav" loop></audio>
 
-    <!-- Canvas do jogo -->
     <canvas></canvas>
 
-    <!-- Mensagem para mobile -->
-    <div id="touchMessage">Toque na tela para ativar a música</div>
-
-    <!-- Scripts do jogo -->
     <script src="data/collisions.js"></script>
     <script src="classes.js"></script>
     <script src="index.js"></script>
-
-    <script>
-      const backgroundMusic = document.getElementById("backgroundMusic");
-      const touchMessage = document.getElementById("touchMessage");
-      backgroundMusic.volume = 0.1;
-
-      // Detecta se é mobile
-      const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-      if (isMobile) {
-        // Mostra mensagem para o usuário tocar
-        touchMessage.style.display = "block";
-
-        function playMusic() {
-          backgroundMusic.play().catch(() => {});
-          touchMessage.style.display = "none"; // esconde mensagem
-          window.removeEventListener("touchstart", playMusic);
-        }
-
-        // Espera o primeiro toque do usuário
-        window.addEventListener("touchstart", playMusic, { once: true });
-      } else {
-        // Desktop: tenta autoplay
-        backgroundMusic.play().catch(() => {});
-      }
-    </script>
   </body>
 </html>

@@ -7,7 +7,7 @@ const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 // Função para definir a velocidade
 function getSpeed() {
   if (isMobile) {
-    return Math.min(canvas.width, canvas.height) * 0.6; // mais rápido no mobile
+    return Math.min(canvas.width, canvas.height) * 0.4; // mais rápido no mobile
   } else {
     return 2; // velocidade fixa no PC
   }
