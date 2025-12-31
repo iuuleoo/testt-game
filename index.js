@@ -111,13 +111,13 @@ const backgroundMusic = new Audio("audio/map.wav"); // caminho da música
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.1; // volume baixo
 
-// Função para tocar a música
+// Função para tocar a música no mobile
 function playMusic() {
   backgroundMusic.play().catch(() => {});
   window.removeEventListener("touchstart", playMusic);
 }
 
-// Mobile: inicia música no primeiro toque
+// Mobile: toca música no primeiro toque
 window.addEventListener("touchstart", playMusic, { once: true });
 
 // Desktop: tenta tocar automaticamente
@@ -142,7 +142,7 @@ image.onload = () => {
     player.draw();
     foreground.draw();
 
-    const speed = getSpeed(); // velocidade atual
+    const speed = getSpeed();
 
     let moving = true;
     player.moving = false;
